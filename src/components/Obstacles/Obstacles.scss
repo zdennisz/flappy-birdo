@@ -1,0 +1,26 @@
+.obstacle{
+    position: absolute;
+    background-color: #5caf51;
+    border-radius: 1px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-top-width: 0px;
+}
+.obstacle_top{
+    justify-content: flex-end;
+    border-bottom-width: 0px;
+}
+
+.obstacle_bottom{
+    justify-content: flex-start;
+    border-top-width: 0px;
+}
+.obstacle_cap{
+    background-color: #5caf51;
+    border-radius: 6px;
+    border-style: solid;
+    z-index: 4;
+}

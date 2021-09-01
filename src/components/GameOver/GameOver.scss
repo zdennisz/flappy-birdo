@@ -1,0 +1,39 @@
+.game_over_container{
+    position: absolute;
+    background-color: white;
+    top: 40%;
+    left: 45%;
+    z-index: 5;
+    border-radius: 10px;
+    min-width: 250px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 3px 2px black;
+}
+@media screen and (max-width: 500px){
+    .game_over_container{
+        top:40%;
+        left:25%;
+    }
+}
+.score{
+    color: black;
+    font-size: 56px;
+}
+.game_over_buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+.game_over_btn{
+    box-shadow: 3px 2px black;
+    border-radius: 3px;
+    cursor: pointer;
+    min-height: 48px;
+    font-weight: bold;
+}
