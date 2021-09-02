@@ -5,6 +5,7 @@ import Obstacles from './components/Obstacles/Obstacles';
 import useWindowSize from './components/useWindowSize/useWindowSize';
 import useKeyPress from './components/useKeyPress/useKeyPress'
 import GameOver from './components/GameOver/GameOver'
+import MainScreen from './components/MainScreen/MainScreen'
 
 let gameGravityLoop: NodeJS.Timeout
 let obstacles: NodeJS.Timeout
@@ -23,12 +24,18 @@ const App = () => {
   const [obsNegHeight, SetObsNegHeight] = useState(-Math.random() * 100)
   const [obsNegHeightTwo, SetObsNegHeightTwo] = useState(-Math.random() * 100)
   const [isGameOver, SetIsGameOver] = useState(false)
-  const keyPressed: boolean = useKeyPress({ key: "t" })
+  const keyPressed: boolean = useKeyPress({ key: " " })
   const [score, SetScore] = useState(0)
+  const [mainScreen, SetMainScreen] = useState(true)
   const gravity = 5
   //initial location
   const birdLeft = size.width / 2
-
+  const startGame = () => {
+    if (mainScreen) {
+      SetMainScreen(false)
+      restartGame()
+    }
+  }
   //obstecale number 1
   useEffect(() => {
     if (obsLeft > -obsWidth) {
@@ -140,14 +147,17 @@ const App = () => {
   return (
     <div className="App">
       <div className="game-container">
-        <div className="sky">
-          {isGameOver && <GameOver score={score} retry={restartGame} />}
-          <Bird bottom={birdBottom} left={birdLeft} isFlapping={isGameOver ? false : keyPressed} />
-          <Obstacles left={obsLeft} height={obsHeight} width={obsWidth} gap={obsGap} bottom={obsNegHeight} />
-          <Obstacles left={obsLeftTwo} height={obsHeight} width={obsWidth} gap={obsGap} bottom={obsNegHeightTwo} />
-        </div>
-        <div className="ground"></div>
-
+        {mainScreen ? <MainScreen startGame={startGame} /> :
+          <>
+            <div className="sky">
+              {isGameOver && <GameOver score={score} retry={restartGame} />}
+              <Bird bottom={birdBottom} left={birdLeft} isFlapping={isGameOver ? false : keyPressed} />
+              <Obstacles left={obsLeft} height={obsHeight} width={obsWidth} gap={obsGap} bottom={obsNegHeight} />
+              <Obstacles left={obsLeftTwo} height={obsHeight} width={obsWidth} gap={obsGap} bottom={obsNegHeightTwo} />
+            </div>
+            <div className="ground"></div>
+          </>
+        }
       </div>
     </div>
   );
