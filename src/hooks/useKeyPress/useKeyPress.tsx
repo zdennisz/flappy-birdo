@@ -1,33 +1,30 @@
 import { useState, useEffect } from "react";
 interface KeyPress {
-    key: string
+	key: string;
 }
 
 const useKeyPress = (keyPress: KeyPress): boolean => {
-    const [keyPressed, SetKeyPressed] = useState(false)
-    const selectedKey = keyPress.key
+	const [keyPressed, SetKeyPressed] = useState(false);
+	const selectedKey = keyPress.key;
 
-    useEffect(() => {
+	useEffect(() => {
+		const downHandler = ({ key }: KeyboardEvent): void => {
+			if (key === selectedKey) {
+				SetKeyPressed(true);
+				setTimeout(() => {
+					SetKeyPressed(false);
+				}, 70);
+			}
+		};
 
-        const downHandler = ({ key }: KeyboardEvent): void => {
-            if (key === selectedKey) {
-                SetKeyPressed(true)
-                setTimeout(() => {
-                    SetKeyPressed(false)
-                }, 70)
-            }
-        }
+		window.addEventListener("keydown", downHandler);
 
-        window.addEventListener("keydown", downHandler)
+		return () => {
+			window.removeEventListener("keydown", downHandler);
+		};
+	}, [keyPressed, selectedKey]);
 
-        return () => {
-            window.removeEventListener("keydown", downHandler)
+	return keyPressed;
+};
 
-        }
-
-    }, [keyPressed, selectedKey])
-
-    return keyPressed
-}
-
-export default useKeyPress
+export default useKeyPress;
