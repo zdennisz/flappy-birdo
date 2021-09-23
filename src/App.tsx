@@ -144,38 +144,36 @@ const App = () => {
 		SetScore(0);
 	};
 	return (
-		<div className='App'>
-			<div className='game-container'>
-				{mainScreen ? (
-					<MainScreen startGame={startGame} />
-				) : (
-					<>
-						<div className='sky'>
-							{isGameOver && <GameOver score={score} retry={restartGame} />}
-							<Bird
-								bottom={birdBottom}
-								left={birdLeft}
-								isFlapping={isGameOver ? false : keyPressed}
-							/>
-							<Obstacles
-								left={obsLeft}
-								height={obsHeight}
-								width={obsWidth}
-								gap={obsGap}
-								bottom={obsNegHeight}
-							/>
-							<Obstacles
-								left={obsLeftTwo}
-								height={obsHeight}
-								width={obsWidth}
-								gap={obsGap}
-								bottom={obsNegHeightTwo}
-							/>
-						</div>
-						<div className='ground'></div>
-					</>
-				)}
-			</div>
+		<div className='game-container'>
+			{mainScreen ? (
+				<MainScreen startGame={startGame} />
+			) : (
+				<>
+					<div className='sky'>
+						{isGameOver && <GameOver score={score} retry={restartGame} />}
+						<Bird
+							bottom={birdBottom}
+							left={birdLeft}
+							isFlapping={isGameOver ? false : keyPressed}
+						/>
+						<Obstacles
+							left={obsLeft}
+							height={obsHeight}
+							width={obsWidth}
+							gap={obsGap}
+							bottom={obsNegHeight}
+						/>
+						<Obstacles
+							left={obsLeftTwo}
+							height={obsHeight}
+							width={obsWidth}
+							gap={obsGap}
+							bottom={obsNegHeightTwo}
+						/>
+					</div>
+					<div className='ground'></div>
+				</>
+			)}
 		</div>
 	);
 };
