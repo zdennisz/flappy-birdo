@@ -16,6 +16,13 @@ const MainScreen = (mainScreen: MainScreenSettings) => {
 		<div className='main_screen_layout'>
 			<div className='main_screen_title'>Welcome to Flappy Birdo</div>
 			<div className='main_screen_logo'>Some Image to be placed here</div>
+			<div
+				className={
+					!keyPressed
+						? "main_screen_instruction_button"
+						: "main_screen_instruction_button_pressed"
+				}
+			></div>
 			<div className='main_screen_instruction'>Press Spacebar/Tap to fly</div>
 			{keyPressed ? startGameHandler() : null}
 		</div>

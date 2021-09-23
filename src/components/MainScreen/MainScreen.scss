@@ -3,11 +3,33 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     background: #6D5A72;
 }
-
+.main_screen_instruction_button{
+    height: 48px;
+    width: 100%;
+    max-width: 350px;
+    background: #5efc8d;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: thin;
+    box-shadow: 5px 5px black;
+}
+.main_screen_instruction_button_pressed{
+   transform: translateY(4px);
+   height: 48px;
+   width: 100%;
+   max-width: 350px;
+   background: #5efc8d;
+   border-radius: 8px;
+   border-style: solid;
+   border-width: thin;
+   box-shadow: 5px 1px black;
+   
+   
+}
 .main_screen_title{
     font-size: xx-large;
     color: #5EFC8D;
