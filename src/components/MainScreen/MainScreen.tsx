@@ -1,6 +1,6 @@
 import './MainScreen.scss'
 import React from 'react'
-import useKeyPress from '../useKeyPress/useKeyPress'
+import useKeyPress from '../../hooks/useKeyPress/useKeyPress'
 interface MainScreenSettings {
     startGame(): void,
 

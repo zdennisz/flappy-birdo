@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Bird from './components/Bird/Bird'
 import Obstacles from './components/Obstacles/Obstacles';
-import useWindowSize from './components/useWindowSize/useWindowSize';
-import useKeyPress from './components/useKeyPress/useKeyPress'
+import useWindowSize from './hooks/useWindowSize/useWindowSize';
+import useKeyPress from './hooks/useKeyPress/useKeyPress'
 import GameOver from './components/GameOver/GameOver'
 import MainScreen from './components/MainScreen/MainScreen'
 
