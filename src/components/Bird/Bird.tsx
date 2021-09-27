@@ -4,19 +4,23 @@ import image from "../../constants/Images";
 import { BIRD_HEIGHT, BIRD_WIDTH, GRAVITY } from "../../constants/globals";
 let gameGravityLoop: NodeJS.Timeout;
 interface BirdProps {
-	left: number;
-	isFlapping: boolean;
+	birdLeft: number;
+	isKeyPressed: boolean;
 	birdBottom: number;
 	updateBirdBottom: (birdNewBottom: number) => void;
 	isGameOver: boolean;
+	birdJumpHandler: () => void;
+	heightLimit: number;
 }
 
 const Bird = ({
-	left,
-	isFlapping,
+	birdLeft,
+	isKeyPressed,
 	birdBottom,
 	updateBirdBottom,
 	isGameOver,
+	birdJumpHandler,
+	heightLimit,
 }: BirdProps) => {
 	// Falling bird animation
 
@@ -44,6 +48,13 @@ const Bird = ({
 		}
 	}, [isGameOver]);
 
+	//check if jump aviliable
+	useEffect(() => {
+		if (!isGameOver && isKeyPressed && birdBottom < heightLimit) {
+			birdJumpHandler();
+		}
+	}, [isGameOver, isKeyPressed, birdBottom, heightLimit, birdJumpHandler]);
+
 	return (
 		<div
 			className='bird'
@@ -51,12 +62,12 @@ const Bird = ({
 				width: `${BIRD_WIDTH}px`,
 				height: `${BIRD_HEIGHT}px`,
 				bottom: `${birdBottom - BIRD_HEIGHT / 2}px`,
-				left: `${left - BIRD_WIDTH / 2}px`,
+				left: `${birdLeft - BIRD_WIDTH / 2}px`,
 			}}
 		>
 			<img
 				className='bird_image'
-				src={isFlapping ? image.birdFlappingSrc : image.birdNotFlappingSrc}
+				src={isKeyPressed ? image.birdFlappingSrc : image.birdNotFlappingSrc}
 				alt='Bird'
 			/>
 		</div>
