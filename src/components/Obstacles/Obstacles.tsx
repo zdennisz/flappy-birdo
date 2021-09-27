@@ -1,10 +1,9 @@
 import React from "react";
 import "./Obstacles.scss";
+import { OBSTACLE_GAP, OBSTACLE_WIDTH } from "../../constants/globals";
 interface ObstacleProps {
 	left: number;
-	width: number;
 	height: number;
-	gap: number;
 	bottom: number;
 }
 
@@ -17,10 +16,10 @@ const Obstacles = (obsProps: ObstacleProps) => {
 			<div
 				className='obstacle obstacle_top'
 				style={{
-					width: `${obsProps.width}px`,
+					width: `${OBSTACLE_WIDTH}px`,
 					height: `${obsProps.height}px`,
 					left: `${obsProps.left}px`,
-					bottom: `${obsProps.bottom + obsProps.height + obsProps.gap}px`,
+					bottom: `${obsProps.bottom + obsProps.height + OBSTACLE_GAP}px`,
 				}}
 			>
 				<div
@@ -29,14 +28,14 @@ const Obstacles = (obsProps: ObstacleProps) => {
 						width: `${capWidth}px`,
 						height: `${capHeight}px`,
 						left: `${obsProps.left}px`,
-						top: `${obsProps.bottom + obsProps.height + obsProps.gap}px`,
+						top: `${obsProps.bottom + obsProps.height + OBSTACLE_GAP}px`,
 					}}
 				></div>
 			</div>
 			<div
 				className='obstacle obstacle_bottom'
 				style={{
-					width: `${obsProps.width}px`,
+					width: `${OBSTACLE_WIDTH}px`,
 					height: `${obsProps.height}px`,
 					left: `${obsProps.left}px`,
 					bottom: `${obsProps.bottom - bottomOffset}px`,

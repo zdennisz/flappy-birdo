@@ -1,6 +1,8 @@
+import wingUp from "../assets/flapy_birdo.png";
+import wingDown from "../assets/flapy_birdo_not_flapping.png";
 const image = {
-	birdFlappingSrc: require("../assets/flapy_birdo.png"),
-	birdNotFlappingSrc: require("../assets/flapy_birdo_not_flapping.png"),
+	birdFlappingSrc: wingUp,
+	birdNotFlappingSrc: wingDown,
 };
 
 export default image;

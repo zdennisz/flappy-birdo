@@ -1,7 +1,6 @@
 import "./MainScreen.scss";
 import React from "react";
 import useKeyPress from "../../hooks/useKeyPress";
-import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 interface MainScreenSettings {
 	startGame(): void;
 }
