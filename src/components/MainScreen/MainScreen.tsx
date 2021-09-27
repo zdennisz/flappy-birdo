@@ -1,12 +1,13 @@
 import "./MainScreen.scss";
 import React from "react";
-import useKeyPress from "../../hooks/useKeyPress/useKeyPress";
+import useKeyPress from "../../hooks/useKeyPress";
+import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 interface MainScreenSettings {
 	startGame(): void;
 }
 
 const MainScreen = (mainScreen: MainScreenSettings) => {
-	const keyPressed: boolean = useKeyPress({ key: " " });
+	const keyPressed: boolean = useKeyPress();
 
 	const startGameHandler = () => {
 		mainScreen.startGame();

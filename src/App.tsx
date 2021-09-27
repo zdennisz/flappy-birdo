@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Bird from "./components/Bird/Bird";
 import Obstacles from "./components/Obstacles/Obstacles";
-import useWindowSize from "./hooks/useWindowSize/useWindowSize";
-import useKeyPress from "./hooks/useKeyPress/useKeyPress";
+import useWindowSize from "./hooks/useWindowSize";
+import useKeyPress from "./hooks/useKeyPress";
 import GameOver from "./components/GameOver/GameOver";
 import MainScreen from "./components/MainScreen/MainScreen";
 
@@ -24,7 +24,7 @@ const App = () => {
 	const [obsNegHeight, SetObsNegHeight] = useState(-Math.random() * 100);
 	const [obsNegHeightTwo, SetObsNegHeightTwo] = useState(-Math.random() * 100);
 	const [isGameOver, SetIsGameOver] = useState(false);
-	const keyPressed: boolean = useKeyPress({ key: " " });
+	const keyPressed: boolean = useKeyPress();
 	const [score, SetScore] = useState(0);
 	const [mainScreen, SetMainScreen] = useState(true);
 	const gravity = 5;
