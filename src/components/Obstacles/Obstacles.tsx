@@ -5,6 +5,7 @@ import {
 	OBSTACLE_GAP,
 	BIRD_HEIGHT_HALF,
 	OBSTACLE_WIDTH,
+	BIRD_WIDTH,
 } from "../../constants/globals";
 import { ObstacleEntity } from "../../constants/types";
 let obstacleInterval: NodeJS.Timeout;
@@ -66,36 +67,42 @@ const Obstacles = ({
 	// Check collision
 	const checkCollision = useCallback(() => {
 		// Iterate over each obstacle and check it it was hit
-		obstacles.forEach((obstacle, index) => {
-			if (
-				(birdBottom <
-					obstacle.obstacleNegativeGap + obsHeight + BIRD_HEIGHT_HALF ||
-					birdBottom >
-						obstacle.obstacleNegativeGap +
-							obsHeight +
-							OBSTACLE_GAP -
-							BIRD_HEIGHT_HALF) &&
-				obstacle.obstaclesLeft >
-					screenSizeWidth / amountOfObstacles - BIRD_HEIGHT_HALF &&
-				obstacle.obstaclesLeft <
-					screenSizeWidth / amountOfObstacles + BIRD_HEIGHT_HALF
-			) {
-				obstacleWasHit();
-			} else if (obstacle.obstaclesLeft === birdLeft + BIRD_HEIGHT_HALF) {
-				updateScore();
-			}
-		});
+		if (!isGameOver) {
+			obstacles.forEach((obstacle, index) => {
+				const obstacleBottomPoint =
+					obstacle.obstacleNegativeGap + obsHeight + BIRD_HEIGHT_HALF;
+				const obstacleTopPoint =
+					obstacle.obstacleNegativeGap +
+					obsHeight +
+					OBSTACLE_GAP -
+					BIRD_HEIGHT_HALF;
+				console.log("birdBottom", birdBottom);
+				console.log("obstacleTopPoint", obstacleTopPoint);
+				console.log("obstacleBottomPoint", obstacleBottomPoint);
+				console.log("obstacle.obstaclesLeft", obstacle.obstaclesLeft);
+				console.log("birdLeft + BIRD_WIDTH", birdLeft + BIRD_WIDTH);
+
+				if (
+					(birdBottom < obstacleTopPoint || birdBottom > obstacleBottomPoint) &&
+					birdLeft + BIRD_WIDTH > obstacle.obstaclesLeft
+				) {
+					obstacleWasHit();
+				} else if (obstacle.obstaclesLeft === birdLeft + BIRD_HEIGHT_HALF) {
+					updateScore();
+				}
+			});
+		}
 	}, [
-		amountOfObstacles,
+		isGameOver,
 		birdBottom,
 		birdLeft,
 		obsHeight,
 		obstacleWasHit,
 		obstacles,
-		screenSizeWidth,
 		updateScore,
 	]);
 
+	// In charge of moving the obstacles and activating the collision check
 	useEffect(() => {
 		if (!isGameOver) {
 			checkCollision();

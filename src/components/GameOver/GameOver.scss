@@ -1,6 +1,6 @@
 .game_over_container{
     position: absolute;
-    background-color: white;
+    background: #6D5A72;
     top: 40%;
     left: 45%;
     z-index: 5;
@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 3px 2px black;
+    box-shadow: 5px 5px black;
 }
 @media screen and (max-width: 500px){
     .game_over_container{
@@ -20,7 +20,7 @@
     }
 }
 .score{
-    color: black;
+    color: #5EFC8D;
     font-size: 56px;
 }
 .game_over_buttons{
@@ -31,9 +31,12 @@
     width: 100%;
 }
 .game_over_btn{
-    box-shadow: 3px 2px black;
-    border-radius: 3px;
     cursor: pointer;
     min-height: 48px;
+    background: #5efc8d;
     font-weight: bold;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: thin;
+    box-shadow: 5px 5px black;
 }
