@@ -3,7 +3,7 @@ import useCheckMobileScreen from "./useCheckMobileScreen";
 import Key from "../constants/Key";
 
 const useKeyPress = (): boolean => {
-	const [keyPressed, SetKeyPressed] = useState(false);
+	const [keyPressed, setKeyPressed] = useState(false);
 	const isMobile = useCheckMobileScreen();
 
 	const selectedKey = Key.SpaceBar;
@@ -11,9 +11,9 @@ const useKeyPress = (): boolean => {
 	const downHandler = useCallback(
 		({ key }: KeyboardEvent): void => {
 			if (key === selectedKey) {
-				SetKeyPressed(true);
+				setKeyPressed(true);
 				setTimeout(() => {
-					SetKeyPressed(false);
+					setKeyPressed(false);
 				}, 70);
 			}
 		},
@@ -21,9 +21,9 @@ const useKeyPress = (): boolean => {
 	);
 
 	const touchDownHandler = useCallback((): void => {
-		SetKeyPressed(true);
+		setKeyPressed(true);
 		setTimeout(() => {
-			SetKeyPressed(false);
+			setKeyPressed(false);
 		}, 70);
 	}, []);
 

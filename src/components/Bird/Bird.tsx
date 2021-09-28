@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./Bird.scss";
-import image from "../../constants/Images";
 import { BIRD_HEIGHT, BIRD_WIDTH, GRAVITY } from "../../constants/globals";
+import BirdAnimation from "../BirdAnimation/BirdAnimation";
 let gameGravityLoop: NodeJS.Timeout;
 interface BirdProps {
 	birdLeft: number;
@@ -65,11 +65,7 @@ const Bird = ({
 				left: `${birdLeft - BIRD_WIDTH / 2}px`,
 			}}
 		>
-			<img
-				className='bird_image'
-				src={isKeyPressed ? image.birdFlappingSrc : image.birdNotFlappingSrc}
-				alt='Bird'
-			/>
+			<BirdAnimation isKeyPressed={isKeyPressed} />
 		</div>
 	);
 };
