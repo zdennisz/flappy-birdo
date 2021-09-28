@@ -3,7 +3,7 @@ import "./Obstacles.scss";
 import Obstacle from "../Obstacle/Obstacle";
 import {
 	OBSTACLE_GAP,
-	BIRD_WIDTH_HALF,
+	BIRD_HEIGHT_HALF,
 	OBSTACLE_WIDTH,
 } from "../../constants/globals";
 import { ObstacleEntity } from "../../constants/types";
@@ -13,7 +13,7 @@ interface ObstacleProps {
 	screenSizeWidth: number;
 	isGameOver: boolean;
 	birdLeft: number;
-	isHit: (hit: boolean) => void;
+	hitHandler: () => void;
 	updateScore: () => void;
 	birdBottom: number;
 }
@@ -22,7 +22,7 @@ const Obstacles = ({
 	amountOfObstacles,
 	screenSizeWidth,
 	isGameOver,
-	isHit,
+	hitHandler,
 	updateScore,
 	birdBottom,
 	birdLeft,
@@ -30,19 +30,18 @@ const Obstacles = ({
 	let obsHeight = 300;
 	const [obstacles, setObstacles] = useState<Array<ObstacleEntity>>([]);
 
-	const obstaclesGap = Math.floor(
-		screenSizeWidth / (screenSizeWidth + screenSizeWidth / amountOfObstacles)
-	);
+	const obstaclesGap = Math.floor(screenSizeWidth / amountOfObstacles);
 
 	// Clears the interval once we unmount
 	const gameOver = () => {
 		clearInterval(obstacleInterval);
+		hitHandler();
 	};
 
 	const obstacleWasHit = useCallback(() => {
 		clearInterval(obstacleInterval);
-		isHit(true);
-	}, [isHit]);
+		hitHandler();
+	}, [hitHandler]);
 
 	// Generate negative number to create random heights of the obstacles
 	const generateNegativeHeight = () => {
@@ -53,12 +52,12 @@ const Obstacles = ({
 		const initData: Array<ObstacleEntity> = [];
 		for (let i = 0; i < amountOfObstacles; i++) {
 			initData.push({
-				obstaclesLeft: obstaclesGap * i,
+				obstaclesLeft: screenSizeWidth + obstaclesGap * i,
 				obstacleNegativeGap: generateNegativeHeight(),
 			});
 		}
 		setObstacles(initData);
-	}, [amountOfObstacles, obstacles, obstaclesGap]);
+	}, [amountOfObstacles, obstaclesGap, screenSizeWidth]);
 
 	// If the game ends clear the interval
 	useEffect(() => {
@@ -73,19 +72,19 @@ const Obstacles = ({
 		obstacles.forEach((obstacle, index) => {
 			if (
 				(birdBottom <
-					obstacle.obstacleNegativeGap + obsHeight + BIRD_WIDTH_HALF ||
+					obstacle.obstacleNegativeGap + obsHeight + BIRD_HEIGHT_HALF ||
 					birdBottom >
 						obstacle.obstacleNegativeGap +
 							obsHeight +
 							OBSTACLE_GAP -
-							BIRD_WIDTH_HALF) &&
+							BIRD_HEIGHT_HALF) &&
 				obstacle.obstaclesLeft >
-					screenSizeWidth / amountOfObstacles - BIRD_WIDTH_HALF &&
+					screenSizeWidth / amountOfObstacles - BIRD_HEIGHT_HALF &&
 				obstacle.obstaclesLeft <
-					screenSizeWidth / amountOfObstacles + BIRD_WIDTH_HALF
+					screenSizeWidth / amountOfObstacles + BIRD_HEIGHT_HALF
 			) {
 				obstacleWasHit();
-			} else if (obstacle.obstaclesLeft === birdLeft + BIRD_WIDTH_HALF) {
+			} else if (obstacle.obstaclesLeft === birdLeft + BIRD_HEIGHT_HALF) {
 				updateScore();
 			}
 		});
@@ -101,20 +100,24 @@ const Obstacles = ({
 	]);
 
 	useEffect(() => {
-		checkCollision();
-		obstacleInterval = setInterval(() => {
-			const updatedObstacleData = obstacles.map((obstacle, index) => {
-				return {
-					...obstacle,
-					obstaclesLeft:
-						obstacle.obstaclesLeft < -OBSTACLE_WIDTH
-							? screenSizeWidth
-							: obstacle.obstaclesLeft - 1,
-				};
-			});
-			setObstacles(updatedObstacleData);
-		}, 30);
-	}, [obstacles, checkCollision, screenSizeWidth]);
+		if (!isGameOver) {
+			checkCollision();
+			clearInterval(obstacleInterval);
+			obstacleInterval = setInterval(() => {
+				setObstacles((prevObstacle) => {
+					return prevObstacle.map((obstacle, index) => {
+						return {
+							...obstacle,
+							obstaclesLeft:
+								obstacle.obstaclesLeft < -OBSTACLE_WIDTH
+									? screenSizeWidth
+									: obstacle.obstaclesLeft - 1,
+						};
+					});
+				});
+			}, 10);
+		}
+	}, [checkCollision, screenSizeWidth, obstacles, isGameOver]);
 
 	return (
 		<>

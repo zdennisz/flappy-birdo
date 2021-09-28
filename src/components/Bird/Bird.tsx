@@ -1,52 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import "./Bird.scss";
-import { BIRD_HEIGHT, BIRD_WIDTH, GRAVITY } from "../../constants/globals";
+import {
+	BIRD_HEIGHT,
+	BIRD_WIDTH,
+	GRAVITY,
+	BIRD_HEIGHT_HALF,
+} from "../../constants/globals";
 import BirdAnimation from "../BirdAnimation/BirdAnimation";
+import useKeyPress from "../../hooks/useKeyPress";
 let gameGravityLoop: NodeJS.Timeout;
 interface BirdProps {
 	birdLeft: number;
-	isKeyPressed: boolean;
 	birdBottom: number;
-	updateBirdBottom: (birdNewBottom: number) => void;
+	updateGravityEffectOnBirdBottom: (birdNewBottom: number) => void;
 	isGameOver: boolean;
 	birdJumpHandler: () => void;
 	heightLimit: number;
+	hitHandler: () => void;
 }
 
 const Bird = ({
 	birdLeft,
-	isKeyPressed,
 	birdBottom,
-	updateBirdBottom,
+	updateGravityEffectOnBirdBottom,
 	isGameOver,
 	birdJumpHandler,
 	heightLimit,
+	hitHandler,
 }: BirdProps) => {
 	// Falling bird animation
+	const isKeyPressed: boolean = useKeyPress();
 
-	const gameOver = () => {
+	const gameOver = useCallback(() => {
 		clearInterval(gameGravityLoop);
-	};
-	useEffect(() => {
-		if (birdBottom > 30) {
-			gameGravityLoop = setInterval(() => {
-				updateBirdBottom(birdBottom - GRAVITY);
-			}, 30);
-		} else {
-			gameOver();
-		}
+		hitHandler();
+	}, [hitHandler]);
 
-		return () => {
-			clearInterval(gameGravityLoop);
-		};
-	}, [birdBottom, updateBirdBottom]);
+	useEffect(() => {
+		if (!isGameOver) {
+			if (birdBottom > BIRD_HEIGHT_HALF) {
+				clearInterval(gameGravityLoop);
+				gameGravityLoop = setInterval(() => {
+					updateGravityEffectOnBirdBottom(birdBottom - GRAVITY);
+				}, 30);
+			} else {
+				gameOver();
+			}
+		}
+	}, [birdBottom, updateGravityEffectOnBirdBottom, gameOver, isGameOver]);
 
 	// Game over restart
 	useEffect(() => {
 		if (isGameOver) {
 			gameOver();
 		}
-	}, [isGameOver]);
+	}, [isGameOver, gameOver]);
 
 	//check if jump aviliable
 	useEffect(() => {
@@ -65,7 +73,7 @@ const Bird = ({
 				left: `${birdLeft - BIRD_WIDTH / 2}px`,
 			}}
 		>
-			<BirdAnimation isKeyPressed={isKeyPressed} />
+			<BirdAnimation isEnabledWingFlap={isKeyPressed && !isGameOver} />
 		</div>
 	);
 };

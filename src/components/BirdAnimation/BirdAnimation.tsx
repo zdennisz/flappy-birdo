@@ -1,9 +1,9 @@
 import React from "react";
 import { BIRD_WIDTH, BIRD_HEIGHT } from "../../constants/globals";
 interface BirdAnimationProps {
-	isKeyPressed: boolean;
+	isEnabledWingFlap: boolean;
 }
-const BirdAnimation = ({ isKeyPressed }: BirdAnimationProps) => {
+const BirdAnimation = ({ isEnabledWingFlap }: BirdAnimationProps) => {
 	return (
 		<svg
 			width={BIRD_WIDTH}
@@ -23,7 +23,7 @@ const BirdAnimation = ({ isKeyPressed }: BirdAnimationProps) => {
 				stroke='black'
 				strokeWidth='15'
 			/>
-			{isKeyPressed && (
+			{isEnabledWingFlap && (
 				<path
 					id='wing'
 					d='M51.8638 8.4705L234.279 101.126C235.239 101.613 235.641 102.774 235.187 103.751L159.905 265.898C159.173 267.473 156.92 267.431 156.247 265.831L49.1144 11.0288C48.3925 9.31184 50.2032 7.627 51.8638 8.4705Z'

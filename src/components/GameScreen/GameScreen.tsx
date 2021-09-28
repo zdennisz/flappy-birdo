@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Bird from "../Bird/Bird";
 import Obstacles from "../Obstacles/Obstacles";
 import GameOver from "../GameOver/GameOver";
 import useKeyPress from "../../hooks/useKeyPress";
-import { OBSTACLE_GAP, OBSTACLE_WIDTH } from "../../constants/globals";
 import "./GameScreen.scss";
-
-let obstacles: NodeJS.Timeout;
-let obstaclesTwo: NodeJS.Timeout;
 
 interface GameScreenProps {
 	gameScreenWidth: number;
@@ -19,7 +15,7 @@ const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
 	const [birdBottom, setBirdBottom] = useState(gameScreenHeight / 2);
 	const [heightLimit] = useState(gameScreenHeight - 400);
 	const birdLeft = gameScreenWidth / 2;
-	const keyPressed: boolean = useKeyPress();
+
 	const [isGameOver, setIsGameOver] = useState(false);
 
 	const restartGame = () => {
@@ -27,13 +23,11 @@ const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
 		setIsGameOver(false);
 		setScore(0);
 	};
-	const gameOver = () => {
-		setIsGameOver(true);
-	};
+
 	const birdJumpHandler = () => {
 		setBirdBottom((state) => state + 1);
 	};
-	const updateBirdBottom = (newVal: number) => {
+	const updateGravityEffectOnBirdBottom = (newVal: number) => {
 		setBirdBottom(newVal);
 	};
 
@@ -41,11 +35,9 @@ const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
 		setScore((score) => score + 1);
 	};
 
-	const isHit = (birdHitObstacle: boolean) => {
-		if (birdHitObstacle) {
-			gameOver();
-		}
-	};
+	const hitHandler = useCallback(() => {
+		setIsGameOver(true);
+	}, []);
 
 	return (
 		<>
@@ -54,11 +46,11 @@ const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
 				<Bird
 					birdBottom={birdBottom}
 					birdLeft={birdLeft}
-					isKeyPressed={isGameOver ? false : keyPressed}
-					updateBirdBottom={updateBirdBottom}
+					updateGravityEffectOnBirdBottom={updateGravityEffectOnBirdBottom}
 					isGameOver={isGameOver}
 					birdJumpHandler={birdJumpHandler}
 					heightLimit={heightLimit}
+					hitHandler={hitHandler}
 				/>
 				<Obstacles
 					amountOfObstacles={3}
@@ -66,7 +58,7 @@ const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
 					isGameOver={isGameOver}
 					birdLeft={birdLeft}
 					birdBottom={birdBottom}
-					isHit={isHit}
+					hitHandler={hitHandler}
 					updateScore={updateScore}
 				/>
 			</div>
