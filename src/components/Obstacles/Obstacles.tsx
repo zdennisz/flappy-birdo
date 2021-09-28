@@ -32,12 +32,7 @@ const Obstacles = ({
 
 	const obstaclesGap = Math.floor(screenSizeWidth / amountOfObstacles);
 
-	// Clears the interval once we unmount
-	const gameOver = () => {
-		clearInterval(obstacleInterval);
-		hitHandler();
-	};
-
+	// Clears the interval once obstacle was hit
 	const obstacleWasHit = useCallback(() => {
 		clearInterval(obstacleInterval);
 		hitHandler();
@@ -64,9 +59,9 @@ const Obstacles = ({
 	// If the game ends clear the interval
 	useEffect(() => {
 		if (isGameOver) {
-			gameOver();
+			obstacleWasHit();
 		}
-	}, [isGameOver]);
+	}, [isGameOver, obstacleWasHit]);
 
 	// Check collision
 	const checkCollision = useCallback(() => {
