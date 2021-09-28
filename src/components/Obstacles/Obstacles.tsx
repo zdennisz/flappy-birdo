@@ -49,15 +49,17 @@ const Obstacles = ({
 	};
 	// Generate an array which represents the obstacles
 	useEffect(() => {
-		const initData: Array<ObstacleEntity> = [];
-		for (let i = 0; i < amountOfObstacles; i++) {
-			initData.push({
-				obstaclesLeft: screenSizeWidth + obstaclesGap * i,
-				obstacleNegativeGap: generateNegativeHeight(),
-			});
+		if (!isGameOver) {
+			const initData: Array<ObstacleEntity> = [];
+			for (let i = 0; i < amountOfObstacles; i++) {
+				initData.push({
+					obstaclesLeft: screenSizeWidth + obstaclesGap * i,
+					obstacleNegativeGap: generateNegativeHeight(),
+				});
+			}
+			setObstacles(initData);
 		}
-		setObstacles(initData);
-	}, [amountOfObstacles, obstaclesGap, screenSizeWidth]);
+	}, [amountOfObstacles, obstaclesGap, screenSizeWidth, isGameOver]);
 
 	// If the game ends clear the interval
 	useEffect(() => {
