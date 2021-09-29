@@ -1,7 +1,7 @@
 @import "../../constants/globals.scss";
 .obstacle{
     position: absolute;
-    background-color: $text-color;
+    background-color: $backgound-color;
     border-radius: 1px;
     border-style: solid;
     display: flex;
@@ -20,7 +20,7 @@
     border-top-width: 0px;
 }
 .obstacle_cap{
-    background-color: $text-color;
+    background-color: $backgound-color;
     border-radius: 6px;
     border-style: solid;
     z-index: 4;

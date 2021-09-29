@@ -20,7 +20,7 @@ const MainScreen = (mainScreen: MainScreenSettings) => {
 		clearInterval(birdAnimationInterval);
 		birdAnimationInterval = setInterval(() => {
 			setIsEnabledWingFlap((state) => !state);
-		}, 300);
+		}, 500);
 	}, [setIsEnabledWingFlap]);
 	return (
 		<div className='main_screen_layout'>
@@ -35,7 +35,7 @@ const MainScreen = (mainScreen: MainScreenSettings) => {
 						: "main_screen_instruction_button_pressed"
 				}
 			></div>
-			<div className='main_screen_instruction'>Press Spacebar/Tap to fly</div>
+			<div className='main_screen_instruction'>Press Spacebar / Tap to fly</div>
 			{keyPressed ? startGameHandler() : null}
 		</div>
 	);

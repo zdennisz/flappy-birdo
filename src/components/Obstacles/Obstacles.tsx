@@ -5,6 +5,7 @@ import {
 	BIRD_HEIGHT_HALF,
 	OBSTACLE_WIDTH,
 	BIRD_WIDTH,
+	BIRD_WIDTH_HALF,
 } from "../../constants/globals";
 import { ObstacleEntity } from "../../constants/types";
 let obstacleInterval: NodeJS.Timeout;
@@ -75,19 +76,21 @@ const Obstacles = ({
 					obsHeight +
 					OBSTACLE_GAP -
 					BIRD_HEIGHT_HALF;
-				console.log("birdBottom", birdBottom);
-				console.log("obstacleTopPoint", obstacleTopPoint);
-				console.log("obstacleBottomPoint", obstacleBottomPoint);
-				console.log("obstacle.obstaclesLeft", obstacle.obstaclesLeft);
-				console.log("birdLeft + BIRD_WIDTH", birdLeft + BIRD_WIDTH);
+				// console.log("birdBottom", birdBottom);
+				// console.log("obstacleTopPoint", obstacleTopPoint);
+				// console.log("obstacleBottomPoint", obstacleBottomPoint);
+				// console.log("obstacle.obstaclesLeft", obstacle.obstaclesLeft);
+				// console.log("birdLeft + BIRD_WIDTH", birdLeft + BIRD_WIDTH);
 
 				if (
-					(birdBottom < obstacleTopPoint || birdBottom > obstacleBottomPoint) &&
-					birdLeft + BIRD_WIDTH > obstacle.obstaclesLeft
+					(birdBottom > obstacleTopPoint || birdBottom < obstacleBottomPoint) &&
+					birdLeft + 10 > obstacle.obstaclesLeft
 				) {
+					console.log("was hit");
 					obstacleWasHit();
 				} else if (obstacle.obstaclesLeft === birdLeft + BIRD_HEIGHT_HALF) {
 					updateScore();
+				} else {
 				}
 			});
 		}

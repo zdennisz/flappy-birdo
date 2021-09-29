@@ -32,7 +32,7 @@ const Obstacle = ({ height, bottom, left }: ObstacleProps) => {
 						width: `${CAP_WIDTH}px`,
 						height: `${CAP_HEIGHT}px`,
 						left: `${left}px`,
-						top: `${bottom + height + OBSTACLE_GAP}px`,
+						bottom: `${bottom + height + OBSTACLE_GAP}px`,
 					}}
 				></div>
 			</div>
@@ -51,7 +51,7 @@ const Obstacle = ({ height, bottom, left }: ObstacleProps) => {
 						width: `${CAP_WIDTH}px`,
 						height: `${CAP_HEIGHT}px`,
 						left: `${left}px`,
-						top: `${height}px`,
+						bottom: `${height}px`,
 					}}
 				></div>
 			</div>
