@@ -1,11 +1,13 @@
+@import "../../constants/globals.scss";
+
 .sky{
-    background-color: lightblue;
+    background-color: $sky-color;
     height: 80vh;
     width: 100vw;
     position: relative;
   }
   .ground{
-    background-color: brown;
+    background-color:  $backgound-color;
     height: 20vh;
     width: 100vw;
     position: relative;

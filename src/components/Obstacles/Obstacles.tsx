@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import "./Obstacles.scss";
+import React, { useState, useEffect, useCallback } from "react";
 import Obstacle from "../Obstacle/Obstacle";
 import {
 	OBSTACLE_GAP,

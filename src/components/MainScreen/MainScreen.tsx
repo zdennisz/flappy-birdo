@@ -1,21 +1,33 @@
 import "./MainScreen.scss";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useKeyPress from "../../hooks/useKeyPress";
+import BirdAnimation from "../BirdAnimation/BirdAnimation";
+
+let birdAnimationInterval: NodeJS.Timeout;
 interface MainScreenSettings {
 	startGame(): void;
 }
 
 const MainScreen = (mainScreen: MainScreenSettings) => {
 	const keyPressed: boolean = useKeyPress();
+	const [isEnabledWingFlap, setIsEnabledWingFlap] = useState(false);
 
 	const startGameHandler = () => {
 		mainScreen.startGame();
 	};
 
+	useEffect(() => {
+		clearInterval(birdAnimationInterval);
+		birdAnimationInterval = setInterval(() => {
+			setIsEnabledWingFlap((state) => !state);
+		}, 300);
+	}, [setIsEnabledWingFlap]);
 	return (
 		<div className='main_screen_layout'>
 			<div className='main_screen_title'>Welcome to Flappy Birdo</div>
-			<div className='main_screen_logo'>Some Image to be placed here</div>
+			<div className='main_screen_animation_container'>
+				<BirdAnimation isEnabledWingFlap={isEnabledWingFlap} />
+			</div>
 			<div
 				className={
 					!keyPressed

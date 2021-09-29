@@ -1,6 +1,8 @@
+@import "../../constants/globals.scss";
+
 .game_over_container{
     position: absolute;
-    background: #6D5A72;
+    background: white;
     top: 40%;
     left: 45%;
     z-index: 5;
@@ -20,7 +22,7 @@
     }
 }
 .score{
-    color: #5EFC8D;
+    color: black;
     font-size: 56px;
 }
 .game_over_buttons{
@@ -33,7 +35,7 @@
 .game_over_btn{
     cursor: pointer;
     min-height: 48px;
-    background: #5efc8d;
+    background: $text-color;
     font-weight: bold;
     border-radius: 8px;
     border-style: solid;

@@ -1,3 +1,5 @@
+@import "../../constants/globals.scss";
+
 .main_screen_layout{
     height: 100%;
     width: 100%;
@@ -5,13 +7,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #6D5A72;
+    background: $backgound-color;
 }
 .main_screen_instruction_button{
     height: 48px;
     width: 100%;
     max-width: 350px;
-    background: #5efc8d;
+    background: $text-color;
     border-radius: 8px;
     border-style: solid;
     border-width: thin;
@@ -22,7 +24,7 @@
    height: 48px;
    width: 100%;
    max-width: 350px;
-   background: #5efc8d;
+   background: $text-color;
    border-radius: 8px;
    border-style: solid;
    border-width: thin;
@@ -32,7 +34,7 @@
 }
 .main_screen_title{
     font-size: xx-large;
-    color: #5EFC8D;
+    color: $text-color;
 }
 
 .main_screen_logo{
@@ -42,11 +44,16 @@ color: white;
 .main_screen_instruction{
     font-size: x-large;
     animation:blinker 1s linear infinite;
-    color: #5EFC8D;
+    color: $text-color;
 }
 
 @keyframes blinker {
     50% {
       opacity: 0;
     }
+  }
+
+  .main_screen_animation_container{
+      margin-top: 32px;
+      margin-bottom: 32px;
   }

@@ -50,11 +50,6 @@ const BirdAnimation = ({ isEnabledWingFlap }: BirdAnimationProps) => {
 				strokeWidth='15'
 			/>
 		</svg>
-		// <img
-		// 	className='bird_image'
-		// 	src={isKeyPressed ? image.birdFlappingSrc : image.birdNotFlappingSrc}
-		// 	alt='Bird'
-		// />
 	);
 };
 
