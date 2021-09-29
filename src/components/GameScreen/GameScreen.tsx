@@ -15,14 +15,13 @@ const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
 	const [birdBottom, setBirdBottom] = useState(gameScreenHeight / 2);
 	const [heightLimit] = useState(gameScreenHeight - 400);
 	const birdLeft = gameScreenWidth / 2;
-
 	const [isGameOver, setIsGameOver] = useState(false);
 
-	const restartGame = () => {
+	const restartGame = useCallback(() => {
 		setBirdBottom(gameScreenHeight / 2);
 		setIsGameOver(false);
 		setScore(0);
-	};
+	}, [gameScreenHeight]);
 
 	const birdJumpHandler = () => {
 		setBirdBottom((state) => state + 1);
@@ -42,7 +41,7 @@ const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
 	return (
 		<>
 			<div className='sky'>
-				{isGameOver && <GameOver score={score} retry={restartGame} />}
+				{isGameOver && <GameOver score={score} restartGame={restartGame} />}
 				<Bird
 					birdBottom={birdBottom}
 					birdLeft={birdLeft}

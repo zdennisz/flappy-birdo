@@ -1,18 +1,18 @@
 import React from "react";
 import "./GameOver.scss";
-interface GameOverSettings {
+interface GameOverProps {
 	score: number;
-	retry: () => void;
+	restartGame: () => void;
 }
 
-const GameOver = (props: GameOverSettings) => {
+const GameOver = ({ score, restartGame }: GameOverProps) => {
 	const retryHandler = () => {
-		props.retry();
+		restartGame();
 	};
 
 	return (
 		<div className='game_over_container'>
-			<div className='score'>Score : {props.score}</div>
+			<div className='score'>Score : {score}</div>
 			<div className='game_over_buttons'>
 				<button className='game_over_btn' onClick={retryHandler}>
 					Retry
