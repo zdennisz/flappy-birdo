@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+	useState,
+	useEffect,
+	useCallback,
+	useLayoutEffect,
+} from "react";
 import Obstacle from "../Obstacle/Obstacle";
 import {
 	OBSTACLE_GAP,
@@ -28,7 +33,6 @@ const Obstacles = ({
 	birdBottom,
 	birdLeft,
 }: ObstacleProps) => {
-	let obsHeight = 300;
 	const [obstacles, setObstacles] = useState<Array<ObstacleEntity>>([]);
 
 	const obstaclesGap = Math.floor(screenSizeWidth / amountOfObstacles);
@@ -39,9 +43,9 @@ const Obstacles = ({
 		hitHandler();
 	}, [hitHandler]);
 
-	// Generate negative number to create random heights of the obstacles
-	const generateNegativeHeight = () => {
-		return -Math.random() * 100;
+	// Generate random heights  for  the obstacles between 5 and 50
+	const generateRandomHeight = () => {
+		return Math.floor(Math.random() * 45) + 5;
 	};
 	// Generate an array which represents the obstacles
 	useEffect(() => {
@@ -49,8 +53,8 @@ const Obstacles = ({
 			const initData: Array<ObstacleEntity> = [];
 			for (let i = 0; i < amountOfObstacles; i++) {
 				initData.push({
-					obstaclesLeft: screenSizeWidth + obstaclesGap * i,
-					obstacleNegativeGap: generateNegativeHeight(),
+					left: screenSizeWidth + obstaclesGap * i,
+					height: generateRandomHeight(),
 				});
 			}
 			setObstacles(initData);
@@ -69,26 +73,16 @@ const Obstacles = ({
 		// Iterate over each obstacle and check it it was hit
 		if (!isGameOver) {
 			obstacles.forEach((obstacle, index) => {
-				const obstacleBottomPoint =
-					obstacle.obstacleNegativeGap + obsHeight + BIRD_HEIGHT_HALF;
+				const obstacleBottomPoint = obstacle.height + BIRD_HEIGHT_HALF;
 				const obstacleTopPoint =
-					obstacle.obstacleNegativeGap +
-					obsHeight +
-					OBSTACLE_GAP -
-					BIRD_HEIGHT_HALF;
-				// console.log("birdBottom", birdBottom);
-				// console.log("obstacleTopPoint", obstacleTopPoint);
-				// console.log("obstacleBottomPoint", obstacleBottomPoint);
-				// console.log("obstacle.obstaclesLeft", obstacle.obstaclesLeft);
-				// console.log("birdLeft + BIRD_WIDTH", birdLeft + BIRD_WIDTH);
+					obstacle.height + OBSTACLE_GAP - BIRD_HEIGHT_HALF;
 
 				if (
 					(birdBottom > obstacleTopPoint || birdBottom < obstacleBottomPoint) &&
-					birdLeft + 10 > obstacle.obstaclesLeft
+					birdLeft + 10 > obstacle.left
 				) {
-					console.log("was hit");
 					obstacleWasHit();
-				} else if (obstacle.obstaclesLeft === birdLeft + BIRD_HEIGHT_HALF) {
+				} else if (obstacle.left === birdLeft + BIRD_HEIGHT_HALF) {
 					updateScore();
 				} else {
 				}
@@ -98,26 +92,25 @@ const Obstacles = ({
 		isGameOver,
 		birdBottom,
 		birdLeft,
-		obsHeight,
 		obstacleWasHit,
 		obstacles,
 		updateScore,
 	]);
 
 	// In charge of moving the obstacles and activating the collision check
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!isGameOver) {
-			checkCollision();
+			//checkCollision();
 			clearInterval(obstacleInterval);
 			obstacleInterval = setInterval(() => {
 				setObstacles((prevObstacle) => {
 					return prevObstacle.map((obstacle, index) => {
 						return {
 							...obstacle,
-							obstaclesLeft:
-								obstacle.obstaclesLeft < -OBSTACLE_WIDTH
+							left:
+								obstacle.left < -OBSTACLE_WIDTH
 									? screenSizeWidth
-									: obstacle.obstaclesLeft - 1,
+									: obstacle.left - 1,
 						};
 					});
 				});
@@ -129,13 +122,7 @@ const Obstacles = ({
 		<>
 			{obstacles.length > 0
 				? obstacles.map((obstacle, index) => {
-						return (
-							<Obstacle
-								height={obsHeight}
-								left={obstacle.obstaclesLeft}
-								bottom={obstacle.obstacleNegativeGap}
-							/>
-						);
+						return <Obstacle height={obstacle.height} left={obstacle.left} />;
 				  })
 				: null}
 		</>

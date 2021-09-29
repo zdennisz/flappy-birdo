@@ -4,16 +4,16 @@ import useKeyPress from "../../hooks/useKeyPress";
 import BirdAnimation from "../BirdAnimation/BirdAnimation";
 
 let birdAnimationInterval: NodeJS.Timeout;
-interface MainScreenSettings {
+interface MainScreenProps {
 	startGame(): void;
 }
 
-const MainScreen = (mainScreen: MainScreenSettings) => {
+const MainScreen = ({ startGame }: MainScreenProps) => {
 	const keyPressed: boolean = useKeyPress();
 	const [isEnabledWingFlap, setIsEnabledWingFlap] = useState(false);
 
 	const startGameHandler = () => {
-		mainScreen.startGame();
+		startGame();
 	};
 
 	useEffect(() => {

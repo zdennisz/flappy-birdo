@@ -18,10 +18,7 @@ const App = () => {
 			{mainScreen ? (
 				<MainScreen startGame={startGame} />
 			) : (
-				<GameScreen
-					gameScreenHeight={size.height}
-					gameScreenWidth={size.width}
-				/>
+				<GameScreen gameScreenWidth={size.width} />
 			)}
 		</div>
 	);

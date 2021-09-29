@@ -1,13 +1,13 @@
 import React from "react";
-import { BIRD_WIDTH, BIRD_HEIGHT } from "../../constants/globals";
+import { BIRD_WIDTH_IN_PX, BIRD_HEIGHT_IN_PX } from "../../constants/globals";
 interface BirdAnimationProps {
 	isEnabledWingFlap: boolean;
 }
 const BirdAnimation = ({ isEnabledWingFlap }: BirdAnimationProps) => {
 	return (
 		<svg
-			width={BIRD_WIDTH}
-			height={BIRD_HEIGHT}
+			width={BIRD_WIDTH_IN_PX}
+			height={BIRD_HEIGHT_IN_PX}
 			viewBox='0 0 443 508'
 			fill='none'
 		>

@@ -1,10 +1,11 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import "./Bird.scss";
 import {
 	BIRD_HEIGHT,
 	BIRD_WIDTH,
 	GRAVITY,
 	BIRD_HEIGHT_HALF,
+	BIRD_WIDTH_HALF,
 } from "../../constants/globals";
 import BirdAnimation from "../BirdAnimation/BirdAnimation";
 import useKeyPress from "../../hooks/useKeyPress";
@@ -30,7 +31,6 @@ const Bird = ({
 }: BirdProps) => {
 	// Falling bird animation
 	const isKeyPressed: boolean = useKeyPress();
-
 	const gameOver = useCallback(() => {
 		clearInterval(gameGravityLoop);
 		hitHandler();
@@ -67,10 +67,10 @@ const Bird = ({
 		<div
 			className='bird'
 			style={{
-				width: `${BIRD_WIDTH}px`,
-				height: `${BIRD_HEIGHT}px`,
-				bottom: `${birdBottom - BIRD_HEIGHT / 2}px`,
-				left: `${birdLeft - BIRD_WIDTH / 2}px`,
+				width: `${BIRD_WIDTH}vh`,
+				height: `${BIRD_HEIGHT}vh`,
+				bottom: `${birdBottom - BIRD_HEIGHT_HALF}vh`,
+				left: `${birdLeft - BIRD_WIDTH_HALF}vh`,
 			}}
 		>
 			<BirdAnimation isEnabledWingFlap={isKeyPressed && !isGameOver} />

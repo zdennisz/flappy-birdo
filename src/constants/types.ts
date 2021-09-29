@@ -1,4 +1,4 @@
 export interface ObstacleEntity {
-	obstaclesLeft: number;
-	obstacleNegativeGap: number;
+	left: number;
+	height: number;
 }

@@ -2,29 +2,28 @@ import React, { useState, useEffect, useCallback } from "react";
 import Bird from "../Bird/Bird";
 import Obstacles from "../Obstacles/Obstacles";
 import GameOver from "../GameOver/GameOver";
-import useKeyPress from "../../hooks/useKeyPress";
+import { GAME_SCREEN_SKY_CONTAINER } from "../../constants/globals";
 import "./GameScreen.scss";
 
 interface GameScreenProps {
 	gameScreenWidth: number;
-	gameScreenHeight: number;
 }
 
-const GameScreen = ({ gameScreenHeight, gameScreenWidth }: GameScreenProps) => {
+const GameScreen = ({ gameScreenWidth }: GameScreenProps) => {
 	const [score, setScore] = useState(0);
-	const [birdBottom, setBirdBottom] = useState(gameScreenHeight / 2);
-	const [heightLimit] = useState(gameScreenHeight - 400);
-	const birdLeft = gameScreenWidth / 2;
+	const [birdBottom, setBirdBottom] = useState(GAME_SCREEN_SKY_CONTAINER / 2.0);
+	const [heightLimit] = useState(GAME_SCREEN_SKY_CONTAINER - 1);
+	const birdLeft = GAME_SCREEN_SKY_CONTAINER / 2;
 	const [isGameOver, setIsGameOver] = useState(false);
 
 	const restartGame = useCallback(() => {
-		setBirdBottom(gameScreenHeight / 2);
+		setBirdBottom(GAME_SCREEN_SKY_CONTAINER / 2);
 		setIsGameOver(false);
 		setScore(0);
-	}, [gameScreenHeight]);
+	}, []);
 
 	const birdJumpHandler = () => {
-		setBirdBottom((state) => state + 1);
+		setBirdBottom((state) => state + 0.1);
 	};
 	const updateGravityEffectOnBirdBottom = (newVal: number) => {
 		setBirdBottom(newVal);
