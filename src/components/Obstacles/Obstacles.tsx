@@ -48,7 +48,7 @@ const Obstacles = ({
 		return Math.floor(Math.random() * 45) + 5;
 	};
 	// Generate an array which represents the obstacles
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!isGameOver) {
 			const initData: Array<ObstacleEntity> = [];
 			for (let i = 0; i < amountOfObstacles; i++) {

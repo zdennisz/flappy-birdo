@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useLayoutEffect } from "react";
 import "./Bird.scss";
 import {
 	BIRD_HEIGHT,
@@ -36,7 +36,7 @@ const Bird = ({
 		hitHandler();
 	}, [hitHandler]);
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!isGameOver) {
 			if (birdBottom > BIRD_HEIGHT_HALF) {
 				clearInterval(gameGravityLoop);
