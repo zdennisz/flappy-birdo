@@ -30,9 +30,9 @@ const GameScreen = ({ gameScreenWidth }: GameScreenProps) => {
 		setBirdBottom(newVal);
 	};
 
-	const updateScore = () => {
+	const updateScore = useCallback(() => {
 		setScore((score) => score + 1);
-	};
+	}, []);
 
 	const hitHandler = useCallback(() => {
 		setIsGameOver(true);
@@ -54,7 +54,7 @@ const GameScreen = ({ gameScreenWidth }: GameScreenProps) => {
 				/>
 				<Obstacles
 					amountOfObstacles={3}
-					screenSizeWidth={gameScreenWidth}
+					screenSizeWidth={100}
 					isGameOver={isGameOver}
 					birdLeft={birdLeft}
 					birdBottom={birdBottom}

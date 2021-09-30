@@ -11,6 +11,7 @@ import {
 	OBSTACLE_WIDTH,
 	BIRD_WIDTH,
 	BIRD_WIDTH_HALF,
+	BIRD_HEIGHT,
 } from "../../constants/globals";
 import { ObstacleEntity } from "../../constants/types";
 let obstacleInterval: NodeJS.Timeout;
@@ -54,7 +55,8 @@ const Obstacles = ({
 			for (let i = 0; i < amountOfObstacles; i++) {
 				initData.push({
 					left: screenSizeWidth + obstaclesGap * i,
-					height: generateRandomHeight(),
+					// height: generateRandomHeight(),
+					height: 23,
 				});
 			}
 			setObstacles(initData);
@@ -68,39 +70,45 @@ const Obstacles = ({
 		}
 	}, [isGameOver, obstacleWasHit]);
 
-	// Check collision
-	const checkCollision = useCallback(() => {
-		// Iterate over each obstacle and check it it was hit
+	// In charge of moving the obstacles and activating the collision check
+	useEffect(() => {
 		if (!isGameOver) {
-			obstacles.forEach((obstacle, index) => {
-				const obstacleBottomPoint = obstacle.height + BIRD_HEIGHT_HALF;
-				const obstacleTopPoint =
-					obstacle.height + OBSTACLE_GAP - BIRD_HEIGHT_HALF;
+			for (const obstacle of obstacles) {
+				const obstacleTopOfBottomPoint = 80 - obstacle.height;
+				const obstacleBottomOfTopPoint = 80 - obstacle.height - 25;
+				const birdTop = birdBottom + BIRD_HEIGHT;
+				console.log(
+					"Math.floor(obstacle.left - birdLeft) === 0",
+					Math.floor(obstacle.left - birdLeft) === 0
+				);
+				console.log("obstacle.left", obstacle.left);
+				console.log("birdLeft", birdLeft);
 
 				if (
-					(birdBottom > obstacleTopPoint || birdBottom < obstacleBottomPoint) &&
-					birdLeft + 10 > obstacle.left
+					(birdTop > obstacleBottomOfTopPoint && birdLeft > obstacle.left) ||
+					(birdBottom > obstacleTopOfBottomPoint && birdLeft > obstacle.left)
 				) {
+					console.log("birdTop", birdTop);
+					console.log("obstacleBottomOfTopPoint", obstacleBottomOfTopPoint);
+					console.log("obstacleTopOfBottomPoint", obstacleTopOfBottomPoint);
+					console.log("birdLeft", birdLeft);
+					console.log("obstacle.left", obstacle.left);
+					console.log("birdBottom", birdBottom);
+					console.log("hit");
+					console.log(
+						"birdTop > obstacleBottomOfTopPoint && birdLeft > obstacle.left",
+						birdTop > obstacleBottomOfTopPoint && birdLeft > obstacle.left
+					);
+					console.log(
+						"birdBottom > obstacleTopOfBottomPoint && birdLeft > obstacle.left",
+						birdBottom > obstacleTopOfBottomPoint && birdLeft > obstacle.left
+					);
 					obstacleWasHit();
-				} else if (obstacle.left === birdLeft + BIRD_HEIGHT_HALF) {
+					break;
+				} else if (Math.floor(obstacle.left - birdLeft) === 0) {
 					updateScore();
-				} else {
 				}
-			});
-		}
-	}, [
-		isGameOver,
-		birdBottom,
-		birdLeft,
-		obstacleWasHit,
-		obstacles,
-		updateScore,
-	]);
-
-	// In charge of moving the obstacles and activating the collision check
-	useLayoutEffect(() => {
-		if (!isGameOver) {
-			//checkCollision();
+			}
 			clearInterval(obstacleInterval);
 			obstacleInterval = setInterval(() => {
 				setObstacles((prevObstacle) => {
@@ -116,7 +124,15 @@ const Obstacles = ({
 				});
 			}, 10);
 		}
-	}, [checkCollision, screenSizeWidth, obstacles, isGameOver]);
+	}, [
+		screenSizeWidth,
+		obstacles,
+		isGameOver,
+		birdBottom,
+		birdLeft,
+		obstacleWasHit,
+		updateScore,
+	]);
 
 	return (
 		<>

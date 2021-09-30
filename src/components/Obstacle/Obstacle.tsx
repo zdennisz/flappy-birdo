@@ -16,7 +16,7 @@ const Obstacle = ({ height, left }: ObstacleProps) => {
 	const screenHeight = GAME_SCREEN_SKY_CONTAINER;
 	const obstacleBottomHeight = height;
 	const obstacleTopHeight =
-		GAME_SCREEN_SKY_CONTAINER - OBSTACLE_GAP - obstacleBottomHeight;
+		GAME_SCREEN_SKY_CONTAINER - 25 - obstacleBottomHeight;
 	const obstacleBottomOffset = -1;
 
 	const obstacleBottomCapBottom = obstacleBottomHeight - CAP_HEIGHT;
@@ -27,7 +27,7 @@ const Obstacle = ({ height, left }: ObstacleProps) => {
 				style={{
 					width: `${OBSTACLE_WIDTH}vh`,
 					height: `${obstacleTopHeight}vh`,
-					left: `${left}px`,
+					left: `${left}vw`,
 					bottom: `${screenHeight - obstacleTopHeight}vh`,
 				}}
 			>
@@ -36,7 +36,7 @@ const Obstacle = ({ height, left }: ObstacleProps) => {
 					style={{
 						width: `${CAP_WIDTH}vh`,
 						height: `${CAP_HEIGHT}vh`,
-						left: `${left}px`,
+						left: `${left}vw`,
 						bottom: `${obstacleTopHeight}vh`,
 					}}
 				></div>
@@ -46,7 +46,7 @@ const Obstacle = ({ height, left }: ObstacleProps) => {
 				style={{
 					width: `${OBSTACLE_WIDTH}vh`,
 					height: `${obstacleBottomHeight}vh`,
-					left: `${left}px`,
+					left: `${left}vw`,
 					bottom: `${obstacleBottomOffset}vh`,
 				}}
 			>
@@ -55,7 +55,7 @@ const Obstacle = ({ height, left }: ObstacleProps) => {
 					style={{
 						width: `${CAP_WIDTH}vh`,
 						height: `${CAP_HEIGHT}vh`,
-						left: `${left}px`,
+						left: `${left}vw`,
 						bottom: `${obstacleBottomCapBottom}vh`,
 					}}
 				></div>
