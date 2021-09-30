@@ -1,5 +1,5 @@
 export const OBSTACLE_WIDTH = 5;
-export const OBSTACLE_GAP = 18;
+export const OBSTACLE_GAP = 25;
 export const GRAVITY = 1;
 export const BIRD_WIDTH_IN_PX = 60;
 export const BIRD_HEIGHT_IN_PX = 60;

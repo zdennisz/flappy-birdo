@@ -55,8 +55,7 @@ const Obstacles = ({
 			for (let i = 0; i < amountOfObstacles; i++) {
 				initData.push({
 					left: screenSizeWidth + obstaclesGap * i,
-					// height: generateRandomHeight(),
-					height: 23,
+					height: generateRandomHeight(),
 				});
 			}
 			setObstacles(initData);
@@ -74,17 +73,20 @@ const Obstacles = ({
 	useEffect(() => {
 		if (!isGameOver) {
 			for (const obstacle of obstacles) {
-				const obstacleTopOfBottomPoint = 80 - obstacle.height;
-				const obstacleBottomOfTopPoint = obstacle.height;
-				const birdTop = birdBottom + BIRD_HEIGHT;
-
-				if (
-					(birdTop > obstacleTopOfBottomPoint && birdLeft > obstacle.left) ||
-					(birdBottom < obstacleBottomOfTopPoint && birdLeft > obstacle.left)
-				) {
-					obstacleWasHit();
-					break;
-				} else if (Math.floor(obstacle.left - birdLeft) === 0) {
+				const birdRight = birdLeft + BIRD_WIDTH;
+				if (Math.abs(birdRight - obstacle.left) <= 1) {
+					const obstacleTopOfBottomPoint = 80 - obstacle.height;
+					const obstacleBottomOfTopPoint = obstacle.height;
+					const birdTop = Math.floor(birdBottom + BIRD_HEIGHT);
+					if (
+						(birdTop > obstacleTopOfBottomPoint && birdRight > obstacle.left) ||
+						(birdBottom < obstacleBottomOfTopPoint && birdRight > obstacle.left)
+					) {
+						obstacleWasHit();
+						break;
+					}
+				}
+				if (Math.floor(obstacle.left - birdLeft) === 0) {
 					updateScore();
 				}
 			}
@@ -101,7 +103,7 @@ const Obstacles = ({
 						};
 					});
 				});
-			}, 10);
+			}, 30);
 		}
 	}, [
 		screenSizeWidth,

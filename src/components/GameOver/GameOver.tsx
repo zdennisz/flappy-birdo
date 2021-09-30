@@ -17,7 +17,7 @@ const GameOver = ({ score, restartGame }: GameOverProps) => {
 				<button className='game_over_btn' onClick={retryHandler}>
 					Retry
 				</button>
-				<button className='game_over_btn'>Save Score</button>
+				{/* <button className='game_over_btn'>Save Score</button> */}
 			</div>
 		</div>
 	);

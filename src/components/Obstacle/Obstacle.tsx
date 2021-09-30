@@ -16,7 +16,7 @@ const Obstacle = ({ height, left }: ObstacleProps) => {
 	const screenHeight = GAME_SCREEN_SKY_CONTAINER;
 	const obstacleBottomHeight = height;
 	const obstacleTopHeight =
-		GAME_SCREEN_SKY_CONTAINER - 25 - obstacleBottomHeight;
+		GAME_SCREEN_SKY_CONTAINER - OBSTACLE_GAP - obstacleBottomHeight;
 	const obstacleBottomOffset = -1;
 
 	const obstacleBottomCapBottom = obstacleBottomHeight - CAP_HEIGHT;

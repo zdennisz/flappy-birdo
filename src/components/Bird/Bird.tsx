@@ -41,7 +41,7 @@ const Bird = ({
 			if (birdBottom > BIRD_HEIGHT_HALF) {
 				clearInterval(gameGravityLoop);
 				gameGravityLoop = setInterval(() => {
-					//	updateGravityEffectOnBirdBottom(birdBottom - GRAVITY);
+					updateGravityEffectOnBirdBottom(birdBottom - GRAVITY);
 				}, 30);
 			} else {
 				gameOver();
