@@ -75,34 +75,13 @@ const Obstacles = ({
 		if (!isGameOver) {
 			for (const obstacle of obstacles) {
 				const obstacleTopOfBottomPoint = 80 - obstacle.height;
-				const obstacleBottomOfTopPoint = 80 - obstacle.height - 25;
+				const obstacleBottomOfTopPoint = obstacle.height;
 				const birdTop = birdBottom + BIRD_HEIGHT;
-				console.log(
-					"Math.floor(obstacle.left - birdLeft) === 0",
-					Math.floor(obstacle.left - birdLeft) === 0
-				);
-				console.log("obstacle.left", obstacle.left);
-				console.log("birdLeft", birdLeft);
 
 				if (
-					(birdTop > obstacleBottomOfTopPoint && birdLeft > obstacle.left) ||
-					(birdBottom > obstacleTopOfBottomPoint && birdLeft > obstacle.left)
+					(birdTop > obstacleTopOfBottomPoint && birdLeft > obstacle.left) ||
+					(birdBottom < obstacleBottomOfTopPoint && birdLeft > obstacle.left)
 				) {
-					console.log("birdTop", birdTop);
-					console.log("obstacleBottomOfTopPoint", obstacleBottomOfTopPoint);
-					console.log("obstacleTopOfBottomPoint", obstacleTopOfBottomPoint);
-					console.log("birdLeft", birdLeft);
-					console.log("obstacle.left", obstacle.left);
-					console.log("birdBottom", birdBottom);
-					console.log("hit");
-					console.log(
-						"birdTop > obstacleBottomOfTopPoint && birdLeft > obstacle.left",
-						birdTop > obstacleBottomOfTopPoint && birdLeft > obstacle.left
-					);
-					console.log(
-						"birdBottom > obstacleTopOfBottomPoint && birdLeft > obstacle.left",
-						birdBottom > obstacleTopOfBottomPoint && birdLeft > obstacle.left
-					);
 					obstacleWasHit();
 					break;
 				} else if (Math.floor(obstacle.left - birdLeft) === 0) {
