@@ -4,6 +4,7 @@ import Obstacles from "../Obstacles/Obstacles";
 import GameOver from "../GameOver/GameOver";
 import { GAME_SCREEN_SKY_CONTAINER } from "../../constants/globals";
 import "./GameScreen.scss";
+import ScoreCounter from "../ScoreCounter/ScoreCounter";
 
 interface GameScreenProps {
 	gameScreenWidth: number;
@@ -40,6 +41,7 @@ const GameScreen = ({ gameScreenWidth }: GameScreenProps) => {
 	return (
 		<>
 			<div className='sky'>
+				{!isGameOver && <ScoreCounter score={score} />}
 				{isGameOver && <GameOver score={score} restartGame={restartGame} />}
 				<Bird
 					birdBottom={birdBottom}
